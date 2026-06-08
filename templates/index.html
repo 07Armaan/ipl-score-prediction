@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Score Prediction</title>
+
+```
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+        background: linear-gradient(135deg, #1e3c72, #2a5298);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .container {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(12px);
+        border-radius: 15px;
+        padding: 30px;
+        width: 420px;
+        color: white;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    h3 {
+        font-size: 14px;
+        margin: 12px 0 5px;
+    }
+
+    select, input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: none;
+        margin-bottom: 10px;
+        outline: none;
+    }
+
+    input::placeholder {
+        color: #555;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        background: #00c6ff;
+        border: none;
+        border-radius: 8px;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+        margin-top: 10px;
+    }
+
+    button:hover {
+        background: #0072ff;
+    }
+
+    .prediction {
+        margin-top: 20px;
+        padding: 12px;
+        border-radius: 8px;
+        background: rgba(0,0,0,0.35);
+        text-align: center;
+        font-weight: bold;
+        font-size: 16px;
+    }
+</style>
+```
+
+</head>
+
+<body>
+
+<div class="container">
+    <h2>🏏 IPL Score Predictor</h2>
+
+```
+<form action="/predict" method="post">
+
+    <h3>Select Batting Team</h3>
+    <select name="batting_team">
+        <option value="CSK">CSK</option>
+        <option value="GT">GT</option>
+        <option value="RCB">RCB</option>
+        <option value="KKR">KKR</option>
+        <option value="MI">MI</option>
+        <option value="RR">RR</option>
+        <option value="LSG">LSG</option>
+        <option value="PBKS">PBKS</option>
+        <option value="DC">DC</option>
+        <option value="SRH">SRH</option>
+    </select>
+
+    <h3>Select Bowling Team</h3>
+    <select name="bowling_team">
+        <option value="CSK">CSK</option>
+        <option value="GT">GT</option>
+        <option value="RCB">RCB</option>
+        <option value="KKR">KKR</option>
+        <option value="MI">MI</option>
+        <option value="RR">RR</option>
+        <option value="LSG">LSG</option>
+        <option value="PBKS">PBKS</option>
+        <option value="DC">DC</option>
+        <option value="SRH">SRH</option>
+    </select>
+
+    <h3>Select Ground Type</h3>
+    <select name="home_advantage">
+        <option value="Away">Away</option>
+        <option value="Home">Home</option>
+        <option value="Neutral">Neutral</option>
+    </select>
+
+    <input type="number" placeholder="Powerplay Runs" name="powerplay_runs" min="0" required>
+    <input type="number" placeholder="Powerplay Wickets" name="powerplay_wickets" max="10" min="1" required>
+    <input type="number" placeholder="Boundaries (PP)" name="boundaries_pp" min="0" required>
+    <input type="number" placeholder="Dot Balls (PP)" name="dot_balls_pp" min="0" required>
+    <input type="number" placeholder="Extras (PP)" name="extras_pp" min="0" required>
+
+    <h3>Select Pitch Type</h3>
+    <select name="pitch_type">
+        <option value="batting">batting</option>
+        <option value="balanced">balanced</option>
+        <option value="bowling">bowling</option>
+    </select>
+
+    <input type="number" placeholder="Venue Avg Score" name="venue_avg_score" min="0" required>
+    <input type="number" step="any" placeholder="Batting Team Form (0-1)" name="batting_team_form" min="0" max="1">
+    <input type="number" step="any" placeholder="Bowling Team Form (0-1)" name="bowling_team_form" min="0" max="1">
+
+    <button type="submit">Predict Score</button>
+
+    {% if prediction %}
+    <div class="prediction">
+        {{ prediction }}
+    </div>
+    {% endif %}
+
+</form>
+```
+
+</div>
+
+</body>
+</html>
